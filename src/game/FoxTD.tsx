@@ -5,7 +5,7 @@ import { ENEMY_TYPES, TOWERS, type Special, type TowerDef } from "./types";
 const W = COLS * CELL;
 const H = ROWS * CELL;
 const GRID = CELL;
-const MAX_WAVE = 12;
+const MAX_WAVE = 20;
 const STAKE_COST = 40;
 
 type Seg = { ax: number; ay: number; bx: number; by: number; len: number; start: number };
@@ -1080,8 +1080,8 @@ export function FoxTD() {
           level: 1,
           aim: 0,
           recoil: 0,
-          hp: 160,
-          maxHp: 160,
+          hp: 300,
+          maxHp: 300,
           shake: 0,
           stake: true,
           gx,
@@ -1113,8 +1113,8 @@ export function FoxTD() {
         level: 1,
         aim: 0,
         recoil: 0,
-        hp: 90,
-        maxHp: 90,
+        hp: 200,
+        maxHp: 200,
         shake: 0,
         stake: false,
         gx,
@@ -1150,10 +1150,10 @@ export function FoxTD() {
     sim.current.queue = [];
     sim.current.wave = 0;
     sim.current.between = 0;
-    goldRef.current = 180;
-    livesRef.current = 20;
-    setGold(180);
-    setLives(20);
+    goldRef.current = 340;
+    livesRef.current = 30;
+    setGold(340);
+    setLives(30);
     setWave(0);
     setSel(null);
     selRef.current = null;
@@ -1253,13 +1253,13 @@ export function FoxTD() {
             <div className="chip">
               波次 {wave}
               {endless ? " · 無盡" : `/${MAX_WAVE}`}
-              {speed === 10 ? " · 10倍" : ""}
+              {speed === 30 ? " · 30倍" : ""}
             </div>
           </div>
           {phase === "play" && paused && (
             <div className="overlay">
               <h2>已暫停</h2>
-              <p className="mb-4 text-sm text-[#c5dff2]">時間停住了。可以繼續守城，或回到主畫面。</p>
+              <p className="mb-4 text-sm text-[#c5dff2]">時空凍結。可以繼續守城，或回到主畫面。</p>
               <button
                 className="btn"
                 onClick={() => {
@@ -1276,12 +1276,12 @@ export function FoxTD() {
           )}
           {phase !== "play" && !workshop && (
             <div className="overlay">
-              <h2>{phase === "win" ? "潮退，聖地仍在" : phase === "lose" ? "結界破碎" : "狐仙結界"}</h2>
+              <h2>{phase === "win" ? "擊倒了弗洛洛，將他制伏在超市她的同時問出了其餘殘黨的下落，聖地以失守，故事還在繼續..." : phase === "lose" ? "卡提西亞從裙底掏出了大劍並鄙視你" : "懸方城"}</h2>
               <p className="mb-4 max-w-md text-sm text-[#c5dff2]">
                 {phase === "ready"
-                  ? "點地圖工房可先封路。戰鬥中放路障會依最短路改道，封死整張圖會被拒絕。每 5 波出現會拆塔的潮刃。可開無盡，或把速度拉到 10 倍。"
+                  ? "點地圖工房可先封路。戰鬥中放路障會依最短路改道，封死整張圖會被拒絕。每 5 波出現會拆塔的潮刃。可開無盡，或把速度拉到 30 倍。"
                   : phase === "win"
-                    ? "十二波妖潮已被擋下。"
+                    ? "20波妖潮已被擋下。"
                     : "生命歸零。重新布置結界再試一次。"}
               </p>
               <button className="btn" onClick={start}>
@@ -1328,7 +1328,7 @@ export function FoxTD() {
               onClick={() => setSpeed((v) => (v === 10 ? 1 : 10))}
               disabled={phase !== "play"}
             >
-              {speed === 10 ? "速度 10x" : "速度 1x"}
+              {speed === 30 ? "速度 30x" : "速度 1x"}
             </button>
             <button
               className={"btn ghost flex-1" + (staking ? " on" : "")}
